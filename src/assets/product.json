@@ -1,0 +1,15 @@
+  [
+    {
+      "id": "65609f081021c44c4cfd68c5",
+      "name": "Prod1",
+      "description": "desc1",
+      "price": 0.99,
+      "category": {
+        "id": "6560f15fc254a1f41eac6231",
+        "name": "Category2",
+        "description": "Description two"
+      },
+      "color": "blue"
+    }
+  ]
+

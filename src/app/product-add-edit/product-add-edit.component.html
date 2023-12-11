@@ -1,0 +1,44 @@
+<div mat-dialog-title>
+    <h1>{{data ? 'Edit': 'Add'}} Product Form</h1>
+</div>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Name:</mat-label>
+                <input matInput type="text" placeholder="Name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Description:</mat-label>
+                <input matInput placeholder="Description" formControlName="description">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Color:</mat-label>
+            <input matInput type="text" placeholder="Color" formControlName="color">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Price:</mat-label>
+            <input matInput type="number" placeholder="Price" formControlName="price">
+            <mat-hint>In euro</mat-hint>
+          </mat-form-field>
+
+        </div>
+
+        <div class="row">
+            <mat-radio-group aria-label="Select an option" formControlName="category">
+                <mat-label><b>Category:</b></mat-label>
+                <mat-radio-button value="cat1">Cat1</mat-radio-button>
+                <mat-radio-button value="cat2">Cat2</mat-radio-button>
+                <mat-radio-button value="cat3">Cat3</mat-radio-button>
+                <mat-radio-button value="others">Not Interested</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action-btns">
+        <button style="margin: 10px;" mat-raised-button color="accent" type="submit">{{data ? 'Update': 'Save'}}</button>
+        <button mat-raised-button type="button" color="warn" [mat-dialog-close]="false">Cancel</button>
+    </div>
+</form>
