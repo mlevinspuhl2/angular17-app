@@ -32,7 +32,7 @@ export class ProductService {
     return axios.get('/api/Product/' + id)
   }
 
-  update(data: Product): Promise<any> {
+  update(id: number, data: any): Promise<any> {
     let payload = {
       name: data.name,
       description: data.description,
@@ -42,7 +42,7 @@ export class ProductService {
 
     }
 
-    return axios.put('/api/Product/' + data.id, payload)
+    return axios.put('/api/Product/' + id, payload)
   }
 
 }

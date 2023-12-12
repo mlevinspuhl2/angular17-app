@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductService } from '../product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-add-edit',
@@ -39,33 +40,47 @@ export class ProductAddEditComponent implements OnInit {
   }
 
   onSubmit() {
-    //if (this.productForm.valid) {
-    //  if (this.data) {
-    //    this.productService
-    //      .updateProduct(this.data.id, this.productForm.value)
-    //      .subscribe({
-    //        next: (val: any) => {
-    //          alert('Product details updated!');
-    //          this.dialogRef.close(true);
-    //        },
-    //        error: (err: any) => {
-    //          console.error(err);
-    //          alert("Error while updating the product!");
-    //        },
-    //      });
-    //  } else {
-    //    this.productService.addProduct(this.productForm.value).subscribe({
-    //      next: (val: any) => {
-    //        alert('Product added successfully!');
-    //        this.productForm.reset();
-    //        this.dialogRef.close(true);
-    //      },
-    //      error: (err: any) => {
-    //        console.error(err);
-    //        alert("Error while adding the product!");
-    //      },
-    //    });
-    //  }
-    //}
+    if (this.productForm.valid) {
+      if (this.data) {
+        this.productService
+          .update(this.data.id, this.productForm.value)
+          .then(({ data }) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Product details updated!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.dialogRef.close(true);
+          }).catch(error => {
+            console.error(error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error while updating the product!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          });
+      } else {
+        this.productService.create(this.productForm.value).then(({ data }) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product added successfully!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.productForm.reset();
+          this.dialogRef.close(true);
+        }).catch(error => {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error while adding the product!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        });
+      }
+    }
   }
 }

@@ -6,7 +6,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import products from "../../assets/product.json";
 import Swal from 'sweetalert2'
 
 
@@ -47,11 +46,6 @@ export class ProductListComponent implements OnInit {
           );
         }
       });
-    //setTimeout(() => {
-    //  this.dataSource.paginator = this.paginator
-    //  this.dataSource.sort = this.sort
-    //}
-    //);
     this.getProductList();
   }
 
@@ -65,18 +59,6 @@ export class ProductListComponent implements OnInit {
       },
     });
   }
-
-  //getProductList() {
-  //  var res = products;
-  //  this.dataSource = new MatTableDataSource(res);
-  //  this.dataSource.sort = this.sort;
-  //  this.dataSource.paginator = this.paginator;
-  //  //  },
-  //  //  error: (err) => {
-  //  //    console.log(err);
-  //  //  },
-  //  //});
-  //}
 
   getProductList() {
     this.productService.getAll().then(({ data }) => {
@@ -93,21 +75,6 @@ export class ProductListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  //deleteProduct(id: number) {
-  //  let confirm = window.confirm("Do you want to delete this product?");
-  //  if (confirm) {
-  //    this.productService.deleteProduct(id).subscribe({
-  //      next: (res) => {
-  //        alert('Product deleted!');
-  //        this.getProductList();
-  //      },
-  //      error: (err) => {
-  //        console.log(err);
-  //      },
-  //    });
-  //  }
-  //}
   deleteProduct(id: string) {
     Swal.fire({
       title: 'Are you sure?',
