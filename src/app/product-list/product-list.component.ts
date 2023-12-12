@@ -65,28 +65,28 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  getProductList() {
-    var res = products;
-    this.dataSource = new MatTableDataSource(res);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    //  },
-    //  error: (err) => {
-    //    console.log(err);
-    //  },
-    //});
-  }
-
   //getProductList() {
-  //  this.productService.getProductList().subscribe({
-  //    next: (res) => {
-  //      this.dataSource = new MatTableDataSource(res);
-  //      this.dataSource.sort = this.sort;
-  //      this.dataSource.paginator = this.paginator;
-  //    },
-  //    error: console.log,
-  //  });
+  //  var res = products;
+  //  this.dataSource = new MatTableDataSource(res);
+  //  this.dataSource.sort = this.sort;
+  //  this.dataSource.paginator = this.paginator;
+  //  //  },
+  //  //  error: (err) => {
+  //  //    console.log(err);
+  //  //  },
+  //  //});
   //}
+
+  getProductList() {
+    this.productService.getProductList().subscribe({
+      next: (res) => {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      error: console.log,
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

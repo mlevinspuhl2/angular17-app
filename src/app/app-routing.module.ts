@@ -4,7 +4,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
 
 const routes: Routes = [
-  { path: '' , component:ProductListComponent },
+  { path: '', component: ProductListComponent },
+  { path: 'products', component: ProductListComponent },
   { path: 'categories', component: CategoryListComponent },
 ];
 
