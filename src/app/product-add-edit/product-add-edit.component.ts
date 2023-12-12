@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductService } from '../product.service';
+import { CategoryService } from '../category.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,9 +20,11 @@ export class ProductAddEditComponent implements OnInit {
     'Graduate',
     'Post Graduate',
   ];
+    categories: any;
 
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
     private dialogRef: MatDialogRef<ProductAddEditComponent>,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,9 +39,16 @@ export class ProductAddEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fetchCategoryList();
     this.productForm.patchValue(this.data);
-  }
+    this.productForm.controls['category'].setValue(this.data.category.id);
 
+  }
+  fetchCategoryList() {
+    this.categoryService.getAll().then(({ data }) => {
+      this.categories = data;
+    }).catch(error => { return error })
+  }
   onSubmit() {
     if (this.productForm.valid) {
       if (this.data) {
