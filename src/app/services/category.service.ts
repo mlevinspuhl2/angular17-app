@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { Category } from './models/category';
+import { Category } from '../models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +29,10 @@ export class CategoryService {
     return axios.get('/api/Category/' + id)
   }
 
-  update(data: Category): Promise<any> {
+  update(id: string, data: any): Promise<any> {
     let payload = {
       name: data.name,
-      description: data.description
+      description: data.description,
     }
 
     return axios.put('/api/Category/' + data.id, payload)

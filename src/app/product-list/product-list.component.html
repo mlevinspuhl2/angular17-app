@@ -1,15 +1,11 @@
 <!-- The body of our app -->
-
 <div class="main-body">
-
-
-
   <!-- The filter section -->
   <mat-form-field aria-haspopup="outline">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="i.e Product One" #input>
   </mat-form-field>
-  <button mat-raised-button color="accent" (click)="openAddEditProductDialog()">ADD Product</button>
+  <button mat-raised-button color="primary" (click)="openAddEditProductDialog()">ADD Product</button>
   <!-- The product details table -->
   <div class="table-container">
     <table mat-table [dataSource]="dataSource" matSort>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { Product } from './models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +31,7 @@ export class ProductService {
     return axios.get('/api/Product/' + id)
   }
 
-  update(id: number, data: any): Promise<any> {
+  update(id: string, data: any): Promise<any> {
     let payload = {
       name: data.name,
       description: data.description,

@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductService } from '../product.service';
-import { CategoryService } from '../category.service';
+import { ProductService } from '../services/product.service';
+import { CategoryService } from '../services/category.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,15 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class ProductAddEditComponent implements OnInit {
   productForm: FormGroup;
-
-  education: string[] = [
-    'Matric',
-    'Diploma',
-    'Intermediate',
-    'Graduate',
-    'Post Graduate',
-  ];
-    categories: any;
+  categories: any;
 
   constructor(
     private productService: ProductService,
