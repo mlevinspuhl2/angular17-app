@@ -39,33 +39,33 @@ export class ProductAddEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.productForm.valid) {
-      if (this.data) {
-        this.productService
-          .updateProduct(this.data.id, this.productForm.value)
-          .subscribe({
-            next: (val: any) => {
-              alert('Product details updated!');
-              this.dialogRef.close(true);
-            },
-            error: (err: any) => {
-              console.error(err);
-              alert("Error while updating the product!");
-            },
-          });
-      } else {
-        this.productService.addProduct(this.productForm.value).subscribe({
-          next: (val: any) => {
-            alert('Product added successfully!');
-            this.productForm.reset();
-            this.dialogRef.close(true);
-          },
-          error: (err: any) => {
-            console.error(err);
-            alert("Error while adding the product!");
-          },
-        });
-      }
-    }
+    //if (this.productForm.valid) {
+    //  if (this.data) {
+    //    this.productService
+    //      .updateProduct(this.data.id, this.productForm.value)
+    //      .subscribe({
+    //        next: (val: any) => {
+    //          alert('Product details updated!');
+    //          this.dialogRef.close(true);
+    //        },
+    //        error: (err: any) => {
+    //          console.error(err);
+    //          alert("Error while updating the product!");
+    //        },
+    //      });
+    //  } else {
+    //    this.productService.addProduct(this.productForm.value).subscribe({
+    //      next: (val: any) => {
+    //        alert('Product added successfully!');
+    //        this.productForm.reset();
+    //        this.dialogRef.close(true);
+    //      },
+    //      error: (err: any) => {
+    //        console.error(err);
+    //        alert("Error while adding the product!");
+    //      },
+    //    });
+    //  }
+    //}
   }
 }

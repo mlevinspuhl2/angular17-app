@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import products from "../assets/product.json";
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -33,7 +34,7 @@ export class AppComponent implements OnInit {
     private dialog: MatDialog,
     private productService: ProductService,
     public responsive: BreakpointObserver
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -78,14 +79,19 @@ export class AppComponent implements OnInit {
   //}
 
   getProductList() {
-    this.productService.getProductList().subscribe({
-      next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: console.log,
-    });
+    //this.productService.getProductList().subscribe({
+    //  next: (res) => {
+    //    this.dataSource = new MatTableDataSource(res);
+    //    this.dataSource.sort = this.sort;
+    //    this.dataSource.paginator = this.paginator;
+    //  },
+    //  error: console.log,
+    //});
+    this.productService.getAll().then(({ data }) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    }).catch(error => { return error })
   }
 
   applyFilter(event: Event) {
@@ -96,19 +102,52 @@ export class AppComponent implements OnInit {
     }
   }
 
-  deleteProduct(id: number) {
-    let confirm = window.confirm("Do you want to delete this product?");
-    if(confirm) {
-      this.productService.deleteProduct(id).subscribe({
-        next: (res) => {
-          alert('Product deleted!');
-          this.getProductList();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+  //deleteProduct(id: number) {
+  //  let confirm = window.confirm("Do you want to delete this product?");
+  //  if (confirm) {
+  //    this.productService.deleteProduct(id).subscribe({
+  //      next: (res) => {
+  //        alert('Product deleted!');
+  //        this.getProductList();
+  //      },
+  //      error: (err) => {
+  //        console.log(err);
+  //      },
+  //    });
+  //  }
+  //}
+  handleDelete(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.productService.delete(id)
+          .then(response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Product deleted successfully!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.getProductList()
+            return response
+          }).catch(error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'An Error Occured!',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            return error
+          })
+      }
+    })
   }
 
   openEditForm(data: any) {

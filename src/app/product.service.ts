@@ -1,31 +1,48 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import products from "../assets/product.json";
-
+import axios from 'axios';
+import { Product } from './models/product';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
+
 export class ProductService {
-  baseUrl: string = "https://localhost:7047/";
 
-  constructor(private httpClient: HttpClient) {}
-
-  addProduct(data: any): Observable<any> {
-    return this.httpClient.post(this.baseUrl + 'products', data);
+  getAll(): Promise<any> {
+    return axios.get('/api/Product')
   }
 
-  updateProduct(id: number, data: any): Observable<any> {
-    return this.httpClient.put(this.baseUrl + `products/${id}`, data);
+  delete(id: string): Promise<any> {
+    return axios.delete('/api/Product/' + id)
   }
 
-  getProductList(): Observable<any> {
-    //return products;
-    return this.httpClient.get(this.baseUrl + 'api/Product');
+  create(data: any): Promise<any> {
+    let payload = {
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      color: data.color,
+      categoryId: data.categoryId
+    }
+
+    return axios.post('/api/Product', payload)
   }
 
-  deleteProduct(id: number): Observable<any> {
-    return this.httpClient.delete(this.baseUrl + `products/${id}`);
+  show(id: string): Promise<any> {
+    return axios.get('/api/Product/' + id)
   }
+
+  update(data: Product): Promise<any> {
+    let payload = {
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      color: data.color,
+      categoryId: data.categoryId
+
+    }
+
+    return axios.put('/api/Product/' + data.id, payload)
+  }
+
 }
