@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-
+import { GlobalConstants } from '../app/common/GlobalConstants';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,14 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-
+ 
+  toolbarTitle = GlobalConstants.toolbarTitle;
   constructor(
     public responsive: BreakpointObserver
   ) { }
 
   ngOnInit(): void {
+    
     this.responsive
       .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
