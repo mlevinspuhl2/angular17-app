@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,10 +33,15 @@ export class ProductListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private productService: ProductService,
-    public responsive: BreakpointObserver
+    public responsive: BreakpointObserver,
+    private router: Router
   ) { }
+  toCategory() {
+    this.router.navigate(['/categories'], { skipLocationChange: true });
+  }
 
   ngOnInit(): void {
+    
 
     this.responsive
       .observe([Breakpoints.HandsetPortrait])

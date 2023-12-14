@@ -7,6 +7,7 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
 import Swal from 'sweetalert2'
 import { CategoryService } from '../services/category.service';
 import { CategoryAddEditComponent } from '../category-add-edit/category-add-edit.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,11 +30,14 @@ export class CategoryListComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private categoryService: CategoryService,
-    public responsive: BreakpointObserver
+    public responsive: BreakpointObserver,
+    private router: Router
   ) { }
-
+  toProduct() {
+    this.router.navigate(['/products'], { skipLocationChange: true });
+  }
   ngOnInit(): void {
-
+    
     this.responsive
       .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
